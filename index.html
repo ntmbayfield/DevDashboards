@@ -167,6 +167,25 @@
     cursor:pointer;
     text-decoration:underline;
   }
+  .section-title{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin:34px 0 16px;
+  }
+  .section-title h3{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:0;
+    white-space:nowrap;
+  }
+  .section-title .rule{flex:1;height:1px;background:var(--line);}
+  .dash-card.prototype{border-style:dashed;}
+  .dash-card.prototype .dc-eyebrow{color:var(--gold-dark);}
+  .dash-card.prototype:hover{border-color:var(--gold);}
 
   footer{
     text-align:center;
@@ -217,6 +236,16 @@
         <p>Gift-level detail and breakdowns by campaign, appeal, and fund for the reporting week.</p>
       </a>
     </div>
+
+    <div class="section-title"><h3>Prototypes</h3><div class="rule"></div></div>
+    <div class="card-grid">
+      <a class="dash-card prototype" href="dashboards/officer-performance.html">
+        <div class="dc-eyebrow">Prototype · Sample Data</div>
+        <h2>Development Officer Performance</h2>
+        <p>Weekly activity, contact flags, portfolio yield, and closed-won proposals, by officer.</p>
+      </a>
+    </div>
+
     <span class="signout" id="signOutLink">Sign out of this session</span>
   </div>
 </main>
