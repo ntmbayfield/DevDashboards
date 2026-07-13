@@ -15,7 +15,9 @@
 //          .then(b => console.log(Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')))
 //   3. Replace PASSWORD_HASH below with the printed value.
 
-const PASSWORD_HASH = 'd4d6209550be592f2663cec93e6ed62a953b8fda4eb15b87d5bc6aad1de578ac'; // default password: changeme2026
+
+// old const PASSWORD_HASH = 'd4d6209550be592f2663cec93e6ed62a953b8fda4eb15b87d5bc6aad1de578ac'; default password: changeme2026
+const PASSWORD_HASH = '538d50030aab843da02810d4a4ab906a7b6c05b6e63374fff1a9e0479e08dece';  //new password: HC17000@rnold
 
 const SESSION_KEY = 'hc_dashboards_authed';
 
