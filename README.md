@@ -12,7 +12,7 @@ site/
     ├── fundraising-performance-fy26.html   (FY26 Fundraising Overview)
     ├── campaign-revenue.html               (Year-over-Year Fundraising)
     ├── fy26-progress-to-goal.html          (FY26 Progress to Goal)
-    ├── weekly-giving.html                  (Weekly Giving: July 6th-12th, 2026)
+    ├── weekly-giving-070626.html                  (Weekly Giving: July 6th-12th, 2026)
     └── officer-performance.html            (Development Officer Performance — prototype)
 ```
 
