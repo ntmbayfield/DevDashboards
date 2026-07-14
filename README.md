@@ -1,7 +1,6 @@
 # Hanna Center Dashboards — Static Site
 
-A small static site bundling all four fundraising dashboards behind a simple
-password gate, ready to deploy on GitHub Pages.
+A small static site bundling all fundraising dashboards behind a simple password gate.
 
 ```
 site/
@@ -9,66 +8,14 @@ site/
 ├── assets/
 │   └── gate.js                         ← shared auth logic
 └── dashboards/
-    ├── fundraising-performance-fy26.html
+    ├── fundraisingperformancefy26.html
     ├── campaign-revenue.html
     ├── fy26-progress-to-goal.html
-    └── weekly-giving.html
+    └── weekly-giving-070626.html
 ```
 
-## ⚠️ Read this before you publish
 
-**GitHub Pages has no real access control — every file in this repo is
-publicly downloadable by anyone who has (or guesses) the URL, password gate
-or not.** The password prompt is implemented in JavaScript that runs in the
-visitor's browser. It will stop:
 
-- Casual visitors who stumble on the link
-- Search engines (the pages are also marked `noindex`)
-- Anyone without basic technical know-how
-
-It will **not** stop someone who:
-
-- Views the page source or opens browser dev tools
-- Fetches the dashboard URLs directly (e.g. `.../dashboards/weekly-giving.html`)
-- Downloads the repo itself if it's a public GitHub repo
-
-Two of these dashboards contain real donor names and gift amounts. If that
-level of protection isn't good enough for your data — and for donor PII, it
-often isn't — consider one of these instead, in order of effort:
-
-1. **Make the GitHub repo private** and use GitHub Pages' private-repo
-   publishing (requires GitHub Pro, Team, or Enterprise for private Pages;
-   viewers must log in with a GitHub account that has repo access — no
-   shared password, but real authentication).
-2. **Put the site behind Cloudflare Access** (free tier available) in front
-   of GitHub Pages or any static host — this adds real, server-side login
-   (email one-time-code or SSO) rather than a client-side password.
-3. **Use a host with built-in password protection**, like Netlify's paid
-   tier, which enforces the password server-side before the page is ever
-   served.
-
-If this is just an internal convenience link for staff who already know not
-to share it, the simple gate below is a reasonable, low-effort choice.
-
-## Deploying to GitHub Pages
-
-1. **Create a new repository** on GitHub (public or private — see caveat
-   above), e.g. `hanna-center-dashboards`.
-2. **Add these files** to the repo, keeping the folder structure above. From
-   this folder:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial dashboard site"
-   git branch -M main
-   git remote add origin https://github.com/<your-org>/<your-repo>.git
-   git push -u origin main
-   ```
-3. **Enable GitHub Pages**: in the repo, go to *Settings → Pages*. Under
-   "Build and deployment," set Source to **Deploy from a branch**, branch
-   `main`, folder `/ (root)`. Save.
-4. GitHub will publish the site at
-   `https://<your-org>.github.io/<your-repo>/` within a minute or two.
 
 ## Changing the password
 
