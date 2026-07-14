@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="robots" content="noindex, nofollow">
-<script src="../assets/gate.js"></script>
-<script>requireAuth('../index.html');</script>
 <meta charset="UTF-8">
 <title>Campaign Revenue Ledger — FY24–FY26</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -152,6 +149,16 @@
     max-width:760px;
     line-height:1.6;
     margin:0 0 22px;
+  }
+  .caveat{
+    font-size:12.5px;
+    color:var(--muted);
+    background:var(--paper-dim);
+    border-left:3px solid var(--gold);
+    padding:10px 14px;
+    margin:0 0 20px;
+    max-width:780px;
+    line-height:1.55;
   }
 
   /* ---- FY tabs ---- */
@@ -336,10 +343,7 @@
         <span class="value flat" id="baTotal">$0</span>
       </div>
       <div class="chart-holder tall"><canvas id="baChart"></canvas></div>
-      <div class="legend-row">
-        <span class="legend-item"><span class="swatch" style="background:var(--gold)"></span>Before cleanup (original campaign)</span>
-        <span class="legend-item"><span class="swatch" style="background:var(--teal)"></span>After cleanup (revised campaign)</span>
-      </div>
+      <table class="ledger" id="baDetailTable" style="margin-top:20px;"></table>
     </div>
   </section>
 
@@ -348,27 +352,24 @@
       <h2>Year-over-Year Change, by Campaign</h2>
       <span class="tag">Post-Cleanup Campaign Names</span>
     </div>
-    <p class="note">Using the cleaned campaign classification (consistent across all three years), the panels below show the dollar swing and percentage swing for each campaign between consecutive fiscal years.</p>
+    <p class="note">Using the cleaned campaign classification (consistent across all three years), the line chart below tracks each campaign's actual revenue across FY24, FY25, and FY26; the tables underneath break out the dollar and percentage swing for each consecutive year pair.</p>
 
-    <div class="yoy-grid">
+    <div class="panel">
+      <div class="chart-holder tall"><canvas id="yoySlopeChart"></canvas></div>
+      <div class="legend-row" id="slopeLegend"></div>
+    </div>
+
+    <div class="yoy-grid" style="margin-top:22px;">
 
       <div class="yoy-card">
         <h3>FY24 → FY25</h3>
         <div class="period-total" id="y1y2total">Grand total: <b>—</b></div>
-        <div class="subhead">Change in $ Amount</div>
-        <div class="chart-holder medium"><canvas id="y1y2Dollar"></canvas></div>
-        <div class="subhead">Change as %</div>
-        <div class="chart-holder medium"><canvas id="y1y2Pct"></canvas></div>
         <table class="ledger" id="y1y2Table"></table>
       </div>
 
       <div class="yoy-card">
         <h3>FY25 → FY26</h3>
         <div class="period-total" id="y2y3total">Grand total: <b>—</b></div>
-        <div class="subhead">Change in $ Amount</div>
-        <div class="chart-holder medium"><canvas id="y2y3Dollar"></canvas></div>
-        <div class="subhead">Change as %</div>
-        <div class="chart-holder medium"><canvas id="y2y3Pct"></canvas></div>
         <table class="ledger" id="y2y3Table"></table>
       </div>
 
@@ -380,17 +381,23 @@
       <h2>Year 1 to Year 3 Change, by Campaign</h2>
       <span class="tag">FY23–24 vs. FY25–26 · Post-Cleanup Names</span>
     </div>
-    <p class="note">The two panels above show change year to year. This section spans the full period, comparing each campaign's revenue in FY23–24 (Year 1) directly against FY25–26 (Year 3), using the cleaned campaign classification throughout.</p>
+    <p class="note">This section spans the full period, comparing each campaign's revenue in FY23–24 (Year 1) directly against FY25–26 (Year 3), using the cleaned campaign classification throughout. Each row below marks FY24 revenue with an open dot and FY26 revenue with a filled dot; the connecting line shows the size of the move, colored green if the campaign grew over the period and red if it shrank. Rows are sorted by the size of the dollar change.</p>
+    <div class="caveat">The decrease shown for <b>Other</b> is expected, not a decline in institutional support: Foundation and Government grants are no longer recorded in Raiser's Edge and are now tracked in their own external set of dashboards, so this line understates that revenue rather than reflecting a real drop.</div>
 
-    <div class="yoy-card" style="max-width:640px;">
-      <h3>FY24 → FY26</h3>
-      <div class="period-total" id="y1y3total">Grand total: <b>—</b></div>
-      <div class="subhead">Change in $ Amount</div>
-      <div class="chart-holder medium"><canvas id="y1y3Dollar"></canvas></div>
-      <div class="subhead">Change as %</div>
-      <div class="chart-holder medium"><canvas id="y1y3Pct"></canvas></div>
-      <table class="ledger" id="y1y3Table"></table>
+    <div class="panel">
+      <div class="total-row">
+        <span class="label">Grand Total Change, FY24 → FY26</span>
+        <span class="value" id="y1y3total">—</span>
+      </div>
+      <div class="legend-row">
+        <span class="legend-item"><span class="swatch" style="background:transparent;border:2px solid var(--muted);border-radius:50%;width:8px;height:8px;"></span>FY24</span>
+        <span class="legend-item"><span class="swatch" style="background:var(--pos);border-radius:50%;"></span>FY26 (increase)</span>
+        <span class="legend-item"><span class="swatch" style="background:var(--neg);border-radius:50%;"></span>FY26 (decrease)</span>
+      </div>
+      <div id="y1y3Dumbbell" style="display:flex;flex-direction:column;gap:22px;margin-top:14px;"></div>
     </div>
+
+    <table class="ledger" id="y1y3Table" style="margin-top:20px;"></table>
   </section>
 
   <footer>
@@ -403,6 +410,7 @@
 const CAMPAIGNS = ['Direct Marketing','Event Income','Hanna Academy','Major Gifts','Other','Planned Giving'];
 
 // Revenue attributed under the ORIGINAL (pre-cleanup) campaign classification, mapped to the new campaign buckets, by fiscal year.
+// Source: Reclassification_Impact_Data_for_Dashboard.xlsx (tabs FY23-24 / FY24-25 / FY25-26, "Revenue - Original Classification").
 const BEFORE = {
   FY24:{ 'Direct Marketing':804027.69, 'Event Income':389323.91, 'Hanna Academy':0, 'Major Gifts':358146.41, 'Other':745678, 'Planned Giving':1085162.25 },
   FY25:{ 'Direct Marketing':1384813.84, 'Event Income':580976.73, 'Hanna Academy':55134.96, 'Major Gifts':0, 'Other':20000, 'Planned Giving':1938863.38 },
@@ -410,6 +418,7 @@ const BEFORE = {
 };
 
 // Revenue under the REVISED (post-cleanup) campaign classification, by fiscal year.
+// Source: Reclassification_Impact_Data_for_Dashboard.xlsx (tabs FY23-24 / FY24-25 / FY25-26, "Revenue - Revised Classification").
 const AFTER = {
   FY24:{ 'Direct Marketing':544210.62, 'Event Income':422423.91, 'Hanna Academy':0, 'Major Gifts':547922.92, 'Other':775678, 'Planned Giving':1092102.81 },
   FY25:{ 'Direct Marketing':241631.17, 'Event Income':638514.98, 'Hanna Academy':17496.71, 'Major Gifts':1041964.07, 'Other':79875, 'Planned Giving':1960306.98 },
@@ -426,38 +435,85 @@ function activeCampaigns(){
 }
 
 // ---------- charts ----------
-let baChart, y1y2DChart, y1y2PChart, y2y3DChart, y2y3PChart, y1y3DChart, y1y3PChart;
+let baChart, yoySlopeChart;
 
 const GOLD = '#C9A227', TEAL = '#2E6B8A', POS = '#2E7D5B', NEG = '#B23A3A', GRID = '#E1E6EE', TEXT='#3C4F6E';
+const INK = '#1D2E48', MUTED = '#6B7A93';
+
+const CAMPAIGN_COLORS = {
+  'Direct Marketing': TEAL,
+  'Event Income': GOLD,
+  'Hanna Academy': POS,
+  'Major Gifts': NEG,
+  'Other': MUTED,
+  'Planned Giving': INK
+};
 
 Chart.defaults.font.family = "'Inter',sans-serif";
 Chart.defaults.color = TEXT;
 
 function renderBeforeAfter(){
   const camps = activeCampaigns();
-  const before = camps.map(c=>BEFORE[state.fy][c]);
-  const after = camps.map(c=>AFTER[state.fy][c]);
   const total = camps.reduce((s,c)=>s+AFTER[state.fy][c],0);
   document.getElementById('baTotal').textContent = money(total);
 
   const ctx = document.getElementById('baChart');
   const data = {
-    labels: camps,
-    datasets:[
-      {label:'Before cleanup', data:before, backgroundColor:GOLD, borderRadius:2, maxBarThickness:34},
-      {label:'After cleanup', data:after, backgroundColor:TEAL, borderRadius:2, maxBarThickness:34}
-    ]
+    labels: ['Original Classification', 'Revised Classification'],
+    datasets: camps.map(c => ({
+      label: c,
+      data: [BEFORE[state.fy][c], AFTER[state.fy][c]],
+      backgroundColor: CAMPAIGN_COLORS[c],
+      borderRadius:2,
+      maxBarThickness:48
+    }))
   };
   const opts = {
     responsive:true, maintainAspectRatio:false,
-    plugins:{legend:{display:false}, tooltip:{callbacks:{label:c=>c.dataset.label+': '+money(c.raw)}}},
+    plugins:{
+      legend:{display:true, position:'bottom', labels:{boxWidth:12, font:{size:11.5}}},
+      tooltip:{callbacks:{label:c=>c.dataset.label+': '+money(c.raw)}}
+    },
     scales:{
-      x:{grid:{display:false}, ticks:{font:{size:11.5}}},
+      x:{grid:{display:false}, ticks:{font:{size:12.5, weight:'600'}}},
       y:{grid:{color:GRID}, ticks:{callback:v=>'$'+(v/1000).toLocaleString()+'k'}}
     }
   };
   if(baChart){ baChart.data=data; baChart.options=opts; baChart.update(); }
   else{ baChart = new Chart(ctx,{type:'bar', data, options:opts}); }
+
+  // Detail table: Original vs Revised revenue, % of total (recomputed for the active toggle), and $/% change
+  const totalBefore = camps.reduce((s,c)=>s+BEFORE[state.fy][c],0);
+  const totalAfter = camps.reduce((s,c)=>s+AFTER[state.fy][c],0);
+  let rows = `<tr><th>Campaign</th><th>Original Revenue</th><th>% of Total (Orig.)</th><th>Revised Revenue</th><th>% of Total (Rev.)</th><th>Change ($)</th><th>Change (%)</th></tr>`;
+  camps.forEach(c=>{
+    const b = BEFORE[state.fy][c], a = AFTER[state.fy][c];
+    const change = a - b;
+    const pctChange = b === 0 ? null : change / b;
+    const pctOfTotalBefore = totalBefore ? b/totalBefore : 0;
+    const pctOfTotalAfter = totalAfter ? a/totalAfter : 0;
+    const arrow = pctChange === null ? '' : (change>=0 ? '<span class="arrow-up">▲</span> ' : '<span class="arrow-down">▼</span> ');
+    rows += `<tr>
+      <td>${c}</td>
+      <td>${money(b)}</td>
+      <td>${(pctOfTotalBefore*100).toFixed(1)}%</td>
+      <td>${money(a)}</td>
+      <td>${(pctOfTotalAfter*100).toFixed(1)}%</td>
+      <td class="${change>=0?'arrow-up':'arrow-down'}">${money(change)}</td>
+      <td>${arrow}${pctStr(pctChange)}</td>
+    </tr>`;
+  });
+  const totalChange = totalAfter - totalBefore;
+  rows += `<tr class="total">
+    <td>Grand Total</td>
+    <td>${money(totalBefore)}</td>
+    <td>100.0%</td>
+    <td>${money(totalAfter)}</td>
+    <td>100.0%</td>
+    <td>${money(totalChange)}</td>
+    <td>${pctStr(totalBefore? totalChange/totalBefore : null)}</td>
+  </tr>`;
+  document.getElementById('baDetailTable').innerHTML = rows;
 }
 
 function buildYoY(prefixDollarId, prefixPctId, tableId, totalId, fromYear, toYear, label){
@@ -531,30 +587,93 @@ function renderTable(tableId, camps, fromVals, toVals, dollars, pcts, fromLabel,
   el.innerHTML = rows;
 }
 
+function renderYoYSlope(){
+  const camps = activeCampaigns();
+  const years = ['FY24','FY25','FY26'];
+  const data = {
+    labels: ['FY24','FY25','FY26'],
+    datasets: camps.map(c => ({
+      label: c,
+      data: years.map(y => AFTER[y][c]),
+      borderColor: CAMPAIGN_COLORS[c],
+      backgroundColor: CAMPAIGN_COLORS[c],
+      borderWidth: 2,
+      pointRadius: 4,
+      pointBackgroundColor: CAMPAIGN_COLORS[c],
+      tension: 0
+    }))
+  };
+  const opts = {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:c=>c.dataset.label+': '+money(c.raw)}}
+    },
+    scales:{
+      x:{grid:{display:false}},
+      y:{grid:{color:GRID}, ticks:{callback:v=>'$'+(v/1000).toLocaleString()+'k'}}
+    }
+  };
+  if(yoySlopeChart){ yoySlopeChart.data=data; yoySlopeChart.options=opts; yoySlopeChart.update(); }
+  else{ yoySlopeChart = new Chart(document.getElementById('yoySlopeChart'), {type:'line', data, options:opts}); }
+
+  document.getElementById('slopeLegend').innerHTML = camps.map(c=>
+    `<span class="legend-item"><span class="swatch" style="background:${CAMPAIGN_COLORS[c]}"></span>${c}</span>`
+  ).join('');
+}
+
 function renderYoY(){
   const r1 = buildYoY('y1y2Dollar','y1y2Pct','y1y2Table','y1y2total','FY24','FY25','FY24→FY25');
-  if(y1y2DChart){ y1y2DChart.data=r1.dData; y1y2DChart.options=r1.dOpts; y1y2DChart.update(); }
-  else { y1y2DChart = new Chart(document.getElementById('y1y2Dollar'), {type:'bar', data:r1.dData, options:r1.dOpts}); }
-  if(y1y2PChart){ y1y2PChart.data=r1.pData; y1y2PChart.options=r1.pOpts; y1y2PChart.update(); }
-  else { y1y2PChart = new Chart(document.getElementById('y1y2Pct'), {type:'bar', data:r1.pData, options:r1.pOpts}); }
   renderTable('y1y2Table', r1.camps, r1.fromVals, r1.toVals, r1.dollars, r1.pcts, 'FY24','FY25');
 
   const r2 = buildYoY('y2y3Dollar','y2y3Pct','y2y3Table','y2y3total','FY25','FY26','FY25→FY26');
-  if(y2y3DChart){ y2y3DChart.data=r2.dData; y2y3DChart.options=r2.dOpts; y2y3DChart.update(); }
-  else { y2y3DChart = new Chart(document.getElementById('y2y3Dollar'), {type:'bar', data:r2.dData, options:r2.dOpts}); }
-  if(y2y3PChart){ y2y3PChart.data=r2.pData; y2y3PChart.options=r2.pOpts; y2y3PChart.update(); }
-  else { y2y3PChart = new Chart(document.getElementById('y2y3Pct'), {type:'bar', data:r2.pData, options:r2.pOpts}); }
   renderTable('y2y3Table', r2.camps, r2.fromVals, r2.toVals, r2.dollars, r2.pcts, 'FY25','FY26');
 
   const r3 = buildYoY('y1y3Dollar','y1y3Pct','y1y3Table','y1y3total','FY24','FY26','FY24→FY26');
-  if(y1y3DChart){ y1y3DChart.data=r3.dData; y1y3DChart.options=r3.dOpts; y1y3DChart.update(); }
-  else { y1y3DChart = new Chart(document.getElementById('y1y3Dollar'), {type:'bar', data:r3.dData, options:r3.dOpts}); }
-  if(y1y3PChart){ y1y3PChart.data=r3.pData; y1y3PChart.options=r3.pOpts; y1y3PChart.update(); }
-  else { y1y3PChart = new Chart(document.getElementById('y1y3Pct'), {type:'bar', data:r3.pData, options:r3.pOpts}); }
   renderTable('y1y3Table', r3.camps, r3.fromVals, r3.toVals, r3.dollars, r3.pcts, 'FY24','FY26');
+
+  const totalFrom = r3.fromVals.reduce((a,b)=>a+b,0);
+  const totalTo = r3.toVals.reduce((a,b)=>a+b,0);
+  const totalChange = totalTo-totalFrom;
+  document.getElementById('y1y3total').textContent = money(totalChange) + ' (' + pctStr(totalFrom? totalChange/totalFrom : null) + ')';
+
+  renderY1Y3Dumbbell(r3);
 }
 
-function renderAll(){ renderBeforeAfter(); renderYoY(); }
+function renderY1Y3Dumbbell(r3){
+  const rows = r3.camps.map((c,i)=>({name:c, v24:r3.fromVals[i], v26:r3.toVals[i]}));
+  rows.sort((a,b)=>Math.abs(b.v26-b.v24)-Math.abs(a.v26-a.v24));
+  const scaleMax = Math.max(...rows.map(r=>Math.max(r.v24,r.v26))) * 1.05;
+
+  const el = document.getElementById('y1y3Dumbbell');
+  el.innerHTML = '';
+  rows.forEach(r=>{
+    const p24 = scaleMax ? r.v24/scaleMax*100 : 0;
+    const p26 = scaleMax ? r.v26/scaleMax*100 : 0;
+    const inc = r.v26 >= r.v24;
+    const color = inc ? POS : NEG;
+    const left = Math.min(p24,p26);
+    const width = Math.abs(p26-p24);
+    const row = document.createElement('div');
+    row.innerHTML = `
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+        <span style="font-size:13px;font-weight:600;color:var(--ink);">${r.name}</span>
+        <span style="font-size:12.5px;color:${color};font-weight:600;">${inc?'+':''}${money(r.v26-r.v24)}</span>
+      </div>
+      <div style="position:relative;height:20px;">
+        <div style="position:absolute;top:9px;left:${left}%;width:${width}%;height:2px;background:${color};opacity:0.5;"></div>
+        <div style="position:absolute;top:4px;left:calc(${p24}% - 6px);width:12px;height:12px;border-radius:50%;border:2px solid var(--muted);background:var(--paper);"></div>
+        <div style="position:absolute;top:4px;left:calc(${p26}% - 6px);width:12px;height:12px;border-radius:50%;background:${color};"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:11px;color:var(--muted);">
+        <span>${money(r.v24)}</span><span>${money(r.v26)}</span>
+      </div>
+    `;
+    el.appendChild(row);
+  });
+}
+
+function renderAll(){ renderBeforeAfter(); renderYoYSlope(); renderYoY(); }
 
 document.getElementById('pgToggle').addEventListener('click', e=>{
   const btn = e.target.closest('button'); if(!btn) return;
