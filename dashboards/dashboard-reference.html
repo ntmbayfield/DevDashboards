@@ -200,7 +200,8 @@
     ├── fundraising-performance-fy26.html   <span class="fyi">(FY26 Fundraising Overview)</span>
     ├── campaign-revenue.html               <span class="fyi">(Year-over-Year Fundraising)</span>
     ├── fy26-progress-to-goal.html          <span class="fyi">(FY26 Progress to Goal)</span>
-    ├── weekly-giving.html                  <span class="fyi">(Weekly Giving: July 6th-12th, 2026)</span>
+    ├── weekly-giving-jul6-12.html          <span class="fyi">(Weekly Giving: July 6th-12th, 2026)</span>
+    ├── weekly-giving-jul1-5.html           <span class="fyi">(Weekly Giving: July 1st-July 5th, 2026)</span>
     ├── officer-performance.html            <span class="fyi">(Development Officer Performance — prototype)</span>
     └── dashboard-reference.html            <span class="fyi">(this page)</span></div>
 
@@ -260,7 +261,7 @@
     </table>
     <p>The Executive Summary narrative on this dashboard is written commentary, not a calculated field — it explains why the FY25→FY26 total revenue drop is a Planned Giving timing effect rather than a fundraising performance issue, and flags the same Foundation/Government tracking-change caveat noted above.</p>
 
-    <h3>Weekly Giving: July 6th-12th, 2026 (weekly-giving.html)</h3>
+    <h3>Weekly Giving: July 6th-12th, 2026 (weekly-giving-jul6-12.html)</h3>
     <p><b>Source file:</b> <code>Weekly_Gift_Detail_Report_07_06_26-07_12_26.csv</code> (gift-level export for a single reporting week; see the Data schema section below).</p>
     <table class="ledger">
       <tr><th>Metric</th><th>Calculation</th></tr>
@@ -272,6 +273,9 @@
       <tr><td>Giving by Campaign / Appeal / Fund</td><td>Amount and gift count grouped by <code>Campaign ID</code>, <code>Appeal Description</code>, and <code>Fund Description</code> respectively, each with % of the week's total</td></tr>
       <tr><td>Gift Detail table</td><td>One row per gift: date, amount, gift type, campaign, fund, appeal, fundraiser, and constituent ID — sortable and searchable</td></tr>
     </table>
+
+    <h3>Weekly Giving: July 1st-July 5th, 2026 (weekly-giving-jul1-5.html)</h3>
+    <p><b>Source file:</b> <code>Weekly_Gift_Detail_Report_07_01_26-07_05_26.xlsx</code> (gift-level export for a single reporting week; same schema and metric definitions as the July 6th-12th dashboard above, applied to a different week's data — see the Data schema section below).</p>
 
     <h3>Development Officer Performance — Prototype (officer-performance.html)</h3>
     <p><b>Source file:</b> none. This dashboard uses <b>illustrative sample data only</b>, built to review the design and layout before connecting it to a real data source. A banner on the page states this. The three "officers" shown reuse fundraiser names that appear in <code>Weekly_Gift_Detail_Report_07_06_26-07_12_26.csv</code> for continuity, but their activity, portfolio, and gift data are invented.</p>
@@ -364,6 +368,31 @@ FY26ProgressToGoal.jsx (user-provided goals) ──&gt; FY26 Progress to Goal da
 
 Officer/portfolio entities (Actions, Proposals, Gifts) ──&gt; Development Officer
      [no file yet — illustrative prototype]                Performance (prototype)</div>
+  </section>
+
+  <section class="block">
+    <div class="block-head"><h2>Standard Operating Procedures</h2></div>
+    <p>Step-by-step procedures for generating the source datasets used to build or refresh each dashboard. Each subsection below is a complete, standalone SOP for one dataset.</p>
+
+    <h3>Weekly Giving Report (RENXT)</h3>
+    <p><b>Purpose:</b> Generate and export the Weekly Giving Report from Raiser's Edge NXT (RENXT) for use in the Weekly Giving Dashboard.</p>
+    <p><b>Frequency:</b> Weekly, every Monday &nbsp;·&nbsp; <b>Responsible party:</b> Database Manager &nbsp;·&nbsp; <b>System:</b> Raiser's Edge NXT</p>
+
+    <table class="ledger">
+      <tr><th>Step</th><th>Instruction</th></tr>
+      <tr><td>1. Navigate to Standard Reports</td><td>In RENXT, use the left navigation bar to go to <b>Analysis</b>, then select <b>Standard Reports</b>.</td></tr>
+      <tr><td>2. Locate the Gift Detail and Summary Report</td><td>In the <b>Financial Reports</b> section, select <b>Gift Detail and Summary Report</b>.</td></tr>
+      <tr><td>3. Find the Weekly Gift Detail and Summary Report</td><td>Scroll through the list of results until you find <b>"Weekly Gift Detail and Summary Report."</b></td></tr>
+      <tr><td>4. Open the report for editing</td><td>Click the <b>···</b> (ellipsis) icon next to the report name, then choose <b>Edit</b> from the list of options shown.</td></tr>
+      <tr><td>5. Verify the reporting period</td><td>Confirm the report period covers <b>last week</b>. If it doesn't default correctly, manually specify the date range as <b>12:00 AM Monday to 11:59 PM Sunday of the previous week</b>. Do not change any other settings on this screen.</td></tr>
+      <tr><td>6. Export the report</td><td>Click <b>Export</b>, then select <b>CSV</b> as the file type.</td></tr>
+      <tr><td>7. Wait for the export notifications</td><td>RENXT will generate the report in four parts and send four separate notifications as each component becomes ready. The other three files summarize the giving data by campaign, appeal, and fund — they don't need to be downloaded, but it's fine to discard them if they are.</td></tr>
+      <tr><td>8. Download the correct file</td><td>From the notifications, download the <b>Gift Detail</b> file.</td></tr>
+      <tr><td>9. Rename the file</td><td>Rename the downloaded file to match this naming convention: <code>Weekly_Gift_Detail_Report_MM_DD_YY-MM_DD_YY.csv</code> (e.g. <code>Weekly_Gift_Detail_Report_07_06_26-07_12_26.csv</code> for the week of July 6–12, 2026).</td></tr>
+      <tr><td>10. Save to the correct location</td><td>Save the renamed file to: <b>Nyiema - Hanna Center &gt; Dashboard Exports &gt; Weekly Gift Reports</b>.</td></tr>
+    </table>
+
+    <div class="caveat">Only the Gift Detail file from the four generated components is required for the dashboard build. The other three (campaign, appeal, and fund summaries) can be discarded if downloaded. No changes should be made to any report settings beyond the date range in Step 5.</div>
   </section>
 
   <footer>Hanna Center · Internal reporting · Not for public distribution</footer>
