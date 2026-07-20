@@ -202,6 +202,7 @@
     ├── fy26-progress-to-goal.html          <span class="fyi">(FY26 Progress to Goal)</span>
     ├── weekly-giving-jul6-12.html          <span class="fyi">(Weekly Giving: July 6th-12th, 2026)</span>
     ├── weekly-giving-jul1-5.html           <span class="fyi">(Weekly Giving: July 1st-July 5th, 2026)</span>
+    ├── weekly-giving-jul13-19.html         <span class="fyi">(Weekly Giving: July 13th-19th, 2026)</span>
     ├── officer-performance.html            <span class="fyi">(Development Officer Performance — prototype)</span>
     └── dashboard-reference.html            <span class="fyi">(this page)</span></div>
 
@@ -272,10 +273,15 @@
       <tr><td>Giving by Day</td><td>Amount summed by <code>Date</code></td></tr>
       <tr><td>Giving by Campaign / Appeal / Fund</td><td>Amount and gift count grouped by <code>Campaign ID</code>, <code>Appeal Description</code>, and <code>Fund Description</code> respectively, each with % of the week's total</td></tr>
       <tr><td>Gift Detail table</td><td>One row per gift: date, amount, gift type, campaign, fund, appeal, fundraiser, and constituent ID — sortable and searchable</td></tr>
+      <tr><td>FYTD Totals (Gifts / Amount / Donors, by Campaign / Appeal / Fund)</td><td>Same fields as above, but summed across every weekly report processed so far this fiscal year (July 1 through the end of this report's week), not just the current week</td></tr>
     </table>
+    <div class="caveat">FYTD Totals note: each weekly dashboard's FYTD Totals section is a cumulative rollup of gift-level data from every prior weekly report in the same fiscal year, combined with the current week. It is recalculated fresh each time a new week's dashboard is built — there is no running database; the underlying gift rows from each week's file are simply concatenated and re-aggregated by campaign, appeal, and fund.</div>
 
     <h3>Weekly Giving: July 1st-July 5th, 2026 (weekly-giving-jul1-5.html)</h3>
     <p><b>Source file:</b> <code>Weekly_Gift_Detail_Report_07_01_26-07_05_26.xlsx</code> (gift-level export for a single reporting week; same schema and metric definitions as the July 6th-12th dashboard above, applied to a different week's data — see the Data schema section below).</p>
+
+    <h3>Weekly Giving: July 13th-19th, 2026 (weekly-giving-jul13-19.html)</h3>
+    <p><b>Source file:</b> <code>Weekly_Gift_Detail_Report_07_13_26-07_19_26.csv</code> (gift-level export for a single reporting week; same schema and metric definitions as the July 6th-12th dashboard above, applied to a different week's data — see the Data schema section below).</p>
 
     <h3>Development Officer Performance — Prototype (officer-performance.html)</h3>
     <p><b>Source file:</b> none. This dashboard uses <b>illustrative sample data only</b>, built to review the design and layout before connecting it to a real data source. A banner on the page states this. The three "officers" shown reuse fundraiser names that appear in <code>Weekly_Gift_Detail_Report_07_06_26-07_12_26.csv</code> for continuity, but their activity, portfolio, and gift data are invented.</p>
