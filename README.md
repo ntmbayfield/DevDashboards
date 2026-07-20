@@ -12,7 +12,9 @@ site/
     ├── fundraising-performance-fy26.html   (FY26 Fundraising Overview)
     ├── campaign-revenue.html               (Year-over-Year Fundraising)
     ├── fy26-progress-to-goal.html          (FY26 Progress to Goal)
-    ├── weekly-giving-070626.html                  (Weekly Giving: July 6th-12th, 2026)
+    ├── weekly-giving-jul6-12.html          (Weekly Giving: July 6th-12th, 2026)
+    ├── weekly-giving-jul1-5.html           (Weekly Giving: July 1st-July 5th, 2026)
+    ├── weekly-giving-jul13-19.html         (Weekly Giving: July 13th-19th, 2026)
     └── officer-performance.html            (Development Officer Performance — prototype)
 ```
 
@@ -116,7 +118,7 @@ a calculated field — it explains why the FY25→FY26 total revenue drop is a
 Planned Giving timing effect rather than a fundraising performance issue, and
 flags the same Foundation/Government tracking-change caveat noted above.
 
-### Weekly Giving: July 6th-12th, 2026 (`weekly-giving.html`)
+### Weekly Giving: July 6th-12th, 2026 (`weekly-giving-jul6-12.html`)
 
 **Source file:** `Weekly_Gift_Detail_Report_07_06_26-07_12_26.csv`
 (gift-level export for a single reporting week; see [Data schema](#data-schema-and-relationships) below).
@@ -132,6 +134,28 @@ flags the same Foundation/Government tracking-change caveat noted above.
 | Giving by Day | Amount summed by `Date` |
 | Giving by Campaign / Appeal / Fund | Amount and gift count grouped by `Campaign ID`, `Appeal Description`, and `Fund Description` respectively, each with % of the week's total |
 | Gift Detail table | One row per gift: date, amount, gift type, campaign, fund, appeal, fundraiser, and constituent ID — sortable and searchable |
+| FYTD Totals (Gifts / Amount / Donors, by Campaign / Appeal / Fund) | Same fields as above, but summed across every weekly report processed so far this fiscal year (July 1 through the end of this report's week), not just the current week |
+
+**FYTD Totals note:** each weekly dashboard's FYTD Totals section is a
+cumulative rollup of gift-level data from every prior weekly report in the
+same fiscal year, combined with the current week. It is recalculated fresh
+each time a new week's dashboard is built — there is no running database;
+the underlying gift rows from each week's file are simply concatenated and
+re-aggregated by campaign, appeal, and fund.
+
+### Weekly Giving: July 1st-July 5th, 2026 (`weekly-giving-jul1-5.html`)
+
+**Source file:** `Weekly_Gift_Detail_Report_07_01_26-07_05_26.xlsx`
+(gift-level export for a single reporting week; same schema and metric
+definitions as the July 6th-12th dashboard above, applied to a different
+week's data — see [Data schema](#data-schema-and-relationships) below).
+
+### Weekly Giving: July 13th-19th, 2026 (`weekly-giving-jul13-19.html`)
+
+**Source file:** `Weekly_Gift_Detail_Report_07_13_26-07_19_26.csv`
+(gift-level export for a single reporting week; same schema and metric
+definitions as the July 6th-12th dashboard above, applied to a different
+week's data — see [Data schema](#data-schema-and-relationships) below).
 
 ### Development Officer Performance — Prototype (`officer-performance.html`)
 
