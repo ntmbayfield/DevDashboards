@@ -1,7 +1,6 @@
 # Hanna Center Dashboards — Static Site
 
-A small static site bundling five fundraising dashboards behind a simple
-password gate, ready to deploy on GitHub Pages.
+A static password-gated site bundling fundraising dashboards and deployed via GitHub Pages - https://ntmbayfield.github.io/DevDashboards/.
 
 ```
 site/
