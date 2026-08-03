@@ -1,6 +1,7 @@
 # Hanna Center Dashboards — Static Site
 
-A static password-gated site bundling fundraising dashboards and deployed via GitHub Pages - https://ntmbayfield.github.io/DevDashboards/.
+A small static site bundling five fundraising dashboards behind a simple
+password gate, ready to deploy on GitHub Pages.
 
 ```
 site/
@@ -14,6 +15,7 @@ site/
     ├── weekly-giving-jul6-12.html          (Weekly Giving: July 6th-12th, 2026)
     ├── weekly-giving-jul1-5.html           (Weekly Giving: July 1st-July 5th, 2026)
     ├── weekly-giving-jul13-19.html         (Weekly Giving: July 13th-19th, 2026)
+    ├── weekly-giving-jul20-26.html         (Weekly Giving: July 20th-26th, 2026)
     └── officer-performance.html            (Development Officer Performance — prototype)
 ```
 
@@ -132,7 +134,7 @@ flags the same Foundation/Government tracking-change caveat noted above.
 | Unique Donors | Count of distinct values in `Constituent Name` (this field holds the constituent ID, not a name, in this export) |
 | Giving by Day | Amount summed by `Date` |
 | Giving by Campaign / Appeal / Fund | Amount and gift count grouped by `Campaign ID`, `Appeal Description`, and `Fund Description` respectively, each with % of the week's total |
-| Gift Detail table | One row per gift: date, amount, gift type, campaign, fund, appeal, fundraiser, and constituent ID — sortable and searchable |
+| Gift Detail table | One row per gift: date, amount, gift type, campaign, fund, appeal, fundraiser, and donor name — sortable and searchable. Donor name links to the constituent's profile in RENXT; gift amount links to the gift record in RENXT (see the RENXT link lookup note below) |
 | FYTD Totals (Gifts / Amount / Donors, by Campaign / Appeal / Fund) | Same fields as above, but summed across every weekly report processed so far this fiscal year (July 1 through the end of this report's week), not just the current week |
 
 **FYTD Totals note:** each weekly dashboard's FYTD Totals section is a
@@ -141,6 +143,18 @@ same fiscal year, combined with the current week. It is recalculated fresh
 each time a new week's dashboard is built — there is no running database;
 the underlying gift rows from each week's file are simply concatenated and
 re-aggregated by campaign, appeal, and fund.
+
+**RENXT link lookup note:** donor-profile and gift-record links in the Gift
+Detail table come from a separate export, `FYTD_Gifts_thru_7-28-26.xlsx`
+(columns W = donor name, Y = gift record link, Z = constituent profile
+link), matched to each weekly report's gift rows by Constituent ID + Gift
+Date + Gift Amount (there is no shared Gift ID between the two exports).
+This match is very reliable but not perfect: a small number of gifts don't
+carry a link (they display as plain text) either because they fell outside
+the lookup file's date range, or because two gifts from the same donor on
+the same day for the same amount created an ambiguous match — in that case
+the first matching row's link is used, which occasionally points to a
+sibling gift rather than the exact one shown.
 
 ### Weekly Giving: July 1st-July 5th, 2026 (`weekly-giving-jul1-5.html`)
 
@@ -152,6 +166,13 @@ week's data — see [Data schema](#data-schema-and-relationships) below).
 ### Weekly Giving: July 13th-19th, 2026 (`weekly-giving-jul13-19.html`)
 
 **Source file:** `Weekly_Gift_Detail_Report_07_13_26-07_19_26.csv`
+(gift-level export for a single reporting week; same schema and metric
+definitions as the July 6th-12th dashboard above, applied to a different
+week's data — see [Data schema](#data-schema-and-relationships) below).
+
+### Weekly Giving: July 20th-26th, 2026 (`weekly-giving-jul20-26.html`)
+
+**Source file:** `Weekly_Gift_Detail_Report_July20-26.csv`
 (gift-level export for a single reporting week; same schema and metric
 definitions as the July 6th-12th dashboard above, applied to a different
 week's data — see [Data schema](#data-schema-and-relationships) below).
