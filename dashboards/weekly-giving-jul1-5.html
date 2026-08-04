@@ -248,6 +248,8 @@
   }
   table.detail td.wrap-cell{white-space:normal;max-width:220px;}
   table.detail tbody tr:hover{background:var(--paper-dim);}
+  a.row-link{color:var(--teal);text-decoration:none;border-bottom:1px dotted var(--teal);}
+  a.row-link:hover{color:var(--ink);border-bottom-color:var(--ink);}
   .detail-empty{padding:24px;text-align:center;color:var(--muted);font-size:13px;}
 
   footer{
@@ -268,7 +270,7 @@
       <div class="brand-eyebrow">Development &amp; Advancement · Weekly Report</div>
       <h1>Weekly Giving: July 1st-July 5th, 2026</h1>
       <p class="sub">Gift activity summary for the reporting week, by campaign, appeal, and fund.</p>
-      <p class="sub" style="margin-top:8px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.04em; color:var(--gold-soft);">Report generated: July 6, 2026</p>
+      <p class="sub" style="margin-top:8px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.04em; color:var(--gold-soft);">Report generated: July 14, 2026</p>
     </div>
     <div class="week-badge" id="weekBadge">—</div>
   </div>
@@ -338,6 +340,45 @@
 
   <section class="block">
     <div class="block-head">
+      <h2>FYTD Totals</h2>
+      <span class="tag" id="fytdTag">Fiscal Year to Date</span>
+    </div>
+    <p class="note">Cumulative giving for the fiscal year through the end of this reporting week, combined across all weekly reports processed so far.</p>
+    <div class="kpi-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px;">
+      <div class="kpi-card">
+        <div class="kpi-label">FYTD Total Gifts</div>
+        <div class="kpi-value" id="fytdGifts">—</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">FYTD Total Amount</div>
+        <div class="kpi-value" id="fytdAmount">—</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">FYTD Unique Donors</div>
+        <div class="kpi-value" id="fytdDonors">—</div>
+      </div>
+    </div>
+    <div class="summary-grid">
+      <div class="summary-card">
+        <h3>By Campaign</h3>
+        <div class="summary-total" id="fytdCampaignTotal"></div>
+        <table class="summary" id="fytdCampaignTable"></table>
+      </div>
+      <div class="summary-card">
+        <h3>By Appeal</h3>
+        <div class="summary-total" id="fytdAppealTotal"></div>
+        <table class="summary" id="fytdAppealTable"></table>
+      </div>
+      <div class="summary-card">
+        <h3>By Fund</h3>
+        <div class="summary-total" id="fytdFundTotal"></div>
+        <table class="summary" id="fytdFundTable"></table>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
       <h2>Gift Detail</h2>
       <span class="tag">Every Gift, This Week</span>
     </div>
@@ -382,8 +423,9 @@
 //# sourceMappingURL=chart.umd.js.map
 
 </script>
-<script id="dashboard-data" type="application/json">
-{"meta":{"date_start":"2026-07-01","date_end":"2026-07-04","total_gifts":18,"total_amount":890.83,"avg_gift":49.49,"unique_donors":18},"by_campaign":[{"label":"Direct Marketing","count":17,"amount":785.34,"pct":88.2},{"label":"General Contribution","count":1,"amount":105.49,"pct":11.8}],"by_appeal":[{"label":"FY26 Summer Camp Print Mail Appeal","count":10,"amount":510.0,"pct":57.2},{"label":"Memorial & Tribute Giving","count":2,"amount":210.98,"pct":23.7},{"label":"Website","count":3,"amount":100.86,"pct":11.3},{"label":"Monthly Donor  Program","count":2,"amount":48.99,"pct":5.5},{"label":"Donors who use the new remit envelopes with no selection  - gifts restricted to R-006","count":1,"amount":20.0,"pct":2.2}],"by_fund":[{"label":"Hanna Priority Needs Funds","count":10,"amount":520.83,"pct":58.5},{"label":"Hanna Recreation Program Funds","count":7,"amount":270.0,"pct":30.3},{"label":"Residential and Vocational Education","count":1,"amount":100.0,"pct":11.2}],"daily":[{"date":"2026-07-01","date_display":"Wed 07/01","count":2,"amount":126.84},{"date":"2026-07-02","date_display":"Thu 07/02","count":14,"amount":605.6},{"date":"2026-07-04","date_display":"Sat 07/04","count":2,"amount":158.39}],"gifts":[{"date":"2026-07-01","date_display":"Wed Jul 01, 2026","amount":21.35,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Priority Needs Funds","fund_id":"R-006","appeal":"Website","appeal_id":"Website","constituent_id":"647909","fundraiser":"","soft_credit":"No"},{"date":"2026-07-01","date_display":"Wed Jul 01, 2026","amount":105.49,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Priority Needs Funds","fund_id":"R-006","appeal":"Memorial & Tribute Giving","appeal_id":"MEM&TRIB","constituent_id":"74143","fundraiser":"","soft_credit":"No"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":50.0,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Recreation Program Funds","fund_id":"R-004","appeal":"FY26 Summer Camp Print Mail Appeal","appeal_id":"FY26CAMP_m","constituent_id":"412866","fundraiser":"","soft_credit":"No"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":100.0,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Recreation Program Funds","fund_id":"R-004","appeal":"FY26 Summer Camp Print Mail Appeal","appeal_id":"FY26CAMP_m","constituent_id":"445097","fundraiser":"","soft_credit":"No"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":26.61,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Priority Needs Funds","fund_id":"R-006","appeal":"Website","appeal_id":"Website","constituent_id":"476817","fundraiser":"Madison Watkins","soft_credit":"No"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":50.0,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Recreation Program Funds","fund_id":"R-004","appeal":"FY26 Summer Camp Print Mail Appeal","appeal_id":"FY26CAMP_m","constituent_id":"485146","fundraiser":"","soft_credit":"No"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":20.0,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Recreation Program Funds","fund_id":"R-004","appeal":"FY26 Summer Camp Print Mail Appeal","appeal_id":"FY26CAMP_m","constituent_id":"486220","fundraiser":"","soft_credit":"No"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":20.0,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Priority Needs Funds","fund_id":"R-006","appeal":"Donors who use the new remit envelopes with no selection  - gifts restricted to R-006","appeal_id":"Remit Envelope","constituent_id":"542043","fundraiser":"","soft_credit":"No"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":10.0,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Recreation Program Funds","fund_id":"R-004","appeal":"FY26 Summer Camp Print Mail Appeal","appeal_id":"FY26CAMP_m","constituent_id":"559229","fundraiser":"","soft_credit":"No"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":40.0,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Priority Needs Funds","fund_id":"R-006","appeal":"FY26 Summer Camp Print Mail Appeal","appeal_id":"FY26CAMP_m","constituent_id":"563392","fundraiser":"","soft_credit":"No"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":30.0,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Recreation Program Funds","fund_id":"R-004","appeal":"FY26 Summer Camp Print Mail Appeal","appeal_id":"FY26CAMP_m","constituent_id":"583818","fundraiser":"","soft_credit":"No"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":10.0,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Recreation Program Funds","fund_id":"R-004","appeal":"FY26 Summer Camp Print Mail Appeal","appeal_id":"FY26CAMP_m","constituent_id":"590759","fundraiser":"","soft_credit":"No"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":100.0,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Priority Needs Funds","fund_id":"R-006","appeal":"FY26 Summer Camp Print Mail Appeal","appeal_id":"FY26CAMP_m","constituent_id":"636435","fundraiser":"","soft_credit":"No"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":100.0,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Residential and Vocational Education","fund_id":"R-001","appeal":"FY26 Summer Camp Print Mail Appeal","appeal_id":"FY26CAMP_m","constituent_id":"653887","fundraiser":"","soft_credit":"No"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":28.99,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Priority Needs Funds","fund_id":"R-006","appeal":"Monthly Donor  Program","appeal_id":"Guardian Angel","constituent_id":"658180","fundraiser":"","soft_credit":"No"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":20.0,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Priority Needs Funds","fund_id":"R-006","appeal":"Monthly Donor  Program","appeal_id":"Guardian Angel","constituent_id":"66309","fundraiser":"","soft_credit":"No"},{"date":"2026-07-04","date_display":"Sat Jul 04, 2026","amount":52.9,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Priority Needs Funds","fund_id":"R-006","appeal":"Website","appeal_id":"Website","constituent_id":"657753","fundraiser":"","soft_credit":"No"},{"date":"2026-07-04","date_display":"Sat Jul 04, 2026","amount":105.49,"gift_type":"Cash","campaign":"General Contribution","campaign_desc":"General Contribution","fund":"Hanna Priority Needs Funds","fund_id":"R-006","appeal":"Memorial & Tribute Giving","appeal_id":"MEM&TRIB","constituent_id":"658643","fundraiser":"","soft_credit":"No"}]}
+<script id="dashboard-data" type="application/json">{"meta":{"date_start":"2026-07-01","date_end":"2026-07-04","total_gifts":18,"total_amount":890.83,"avg_gift":49.49,"unique_donors":18},"by_campaign":[{"label":"Direct Marketing","count":17,"amount":785.34,"pct":88.2},{"label":"General Contribution","count":1,"amount":105.49,"pct":11.8}],"by_appeal":[{"label":"FY26 Summer Camp Print Mail Appeal","count":10,"amount":510.0,"pct":57.2},{"label":"Memorial & Tribute Giving","count":2,"amount":210.98,"pct":23.7},{"label":"Website","count":3,"amount":100.86,"pct":11.3},{"label":"Monthly Donor  Program","count":2,"amount":48.99,"pct":5.5},{"label":"Donors who use the new remit envelopes with no selection  - gifts restricted to R-006","count":1,"amount":20.0,"pct":2.2}],"by_fund":[{"label":"Hanna Priority Needs Funds","count":10,"amount":520.83,"pct":58.5},{"label":"Hanna Recreation Program Funds","count":7,"amount":270.0,"pct":30.3},{"label":"Residential and Vocational Education","count":1,"amount":100.0,"pct":11.2}],"daily":[{"date":"2026-07-01","date_display":"Wed 07/01","count":2,"amount":126.84},{"date":"2026-07-02","date_display":"Thu 07/02","count":14,"amount":605.6},{"date":"2026-07-04","date_display":"Sat 07/04","count":2,"amount":158.39}],"gifts":[{"date":"2026-07-01","date_display":"Wed Jul 01, 2026","amount":21.35,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Priority Needs Funds","fund_id":"R-006","appeal":"Website","appeal_id":"Website","constituent_id":"647909","fundraiser":"","soft_credit":"No","donor_name":"Phyllis Divens","gift_link":"https://host.nxt.blackbaud.com/gift/page/1016534?svcid=renxt&envid=p-GL7PUxuNrEWw0wYzXRPqCw","cons_link":"https://host.nxt.blackbaud.com/constituent/records/616116?envId=p-GL7PUxuNrEWw0wYzXRPqCw&svcId=renxt"},{"date":"2026-07-01","date_display":"Wed Jul 01, 2026","amount":105.49,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Priority Needs Funds","fund_id":"R-006","appeal":"Memorial & Tribute Giving","appeal_id":"MEM&TRIB","constituent_id":"74143","fundraiser":"","soft_credit":"No","donor_name":"Robert A. Guglielmi","gift_link":"https://host.nxt.blackbaud.com/gift/page/1016535?svcid=renxt&envid=p-GL7PUxuNrEWw0wYzXRPqCw","cons_link":"https://host.nxt.blackbaud.com/constituent/records/185821?envId=p-GL7PUxuNrEWw0wYzXRPqCw&svcId=renxt"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":50.0,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Recreation Program Funds","fund_id":"R-004","appeal":"FY26 Summer Camp Print Mail Appeal","appeal_id":"FY26CAMP_m","constituent_id":"412866","fundraiser":"","soft_credit":"No","donor_name":"Michael T. Velarde","gift_link":"https://host.nxt.blackbaud.com/gift/page/1016543?svcid=renxt&envid=p-GL7PUxuNrEWw0wYzXRPqCw","cons_link":"https://host.nxt.blackbaud.com/constituent/records/326820?envId=p-GL7PUxuNrEWw0wYzXRPqCw&svcId=renxt"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":100.0,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Recreation Program Funds","fund_id":"R-004","appeal":"FY26 Summer Camp Print Mail Appeal","appeal_id":"FY26CAMP_m","constituent_id":"445097","fundraiser":"","soft_credit":"No","donor_name":"Ted S. Irwin","gift_link":"https://host.nxt.blackbaud.com/gift/page/1016540?svcid=renxt&envid=p-GL7PUxuNrEWw0wYzXRPqCw","cons_link":"https://host.nxt.blackbaud.com/constituent/records/365530?envId=p-GL7PUxuNrEWw0wYzXRPqCw&svcId=renxt"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":26.61,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Priority Needs Funds","fund_id":"R-006","appeal":"Website","appeal_id":"Website","constituent_id":"476817","fundraiser":"Madison Watkins","soft_credit":"No","donor_name":"Michael Matesky","gift_link":"https://host.nxt.blackbaud.com/gift/page/1016552?svcid=renxt&envid=p-GL7PUxuNrEWw0wYzXRPqCw","cons_link":"https://host.nxt.blackbaud.com/constituent/records/403401?envId=p-GL7PUxuNrEWw0wYzXRPqCw&svcId=renxt"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":50.0,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Recreation Program Funds","fund_id":"R-004","appeal":"FY26 Summer Camp Print Mail Appeal","appeal_id":"FY26CAMP_m","constituent_id":"485146","fundraiser":"","soft_credit":"No","donor_name":"Francis T. Venezia","gift_link":"https://host.nxt.blackbaud.com/gift/page/1016539?svcid=renxt&envid=p-GL7PUxuNrEWw0wYzXRPqCw","cons_link":"https://host.nxt.blackbaud.com/constituent/records/413610?envId=p-GL7PUxuNrEWw0wYzXRPqCw&svcId=renxt"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":20.0,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Recreation Program Funds","fund_id":"R-004","appeal":"FY26 Summer Camp Print Mail Appeal","appeal_id":"FY26CAMP_m","constituent_id":"486220","fundraiser":"","soft_credit":"No","donor_name":"Antonio P. Crisostomo","gift_link":"https://host.nxt.blackbaud.com/gift/page/1016542?svcid=renxt&envid=p-GL7PUxuNrEWw0wYzXRPqCw","cons_link":"https://host.nxt.blackbaud.com/constituent/records/414881?envId=p-GL7PUxuNrEWw0wYzXRPqCw&svcId=renxt"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":20.0,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Priority Needs Funds","fund_id":"R-006","appeal":"Donors who use the new remit envelopes with no selection  - gifts restricted to R-006","appeal_id":"Remit Envelope","constituent_id":"542043","fundraiser":"","soft_credit":"No","donor_name":"Francis Y. Fan","gift_link":"https://host.nxt.blackbaud.com/gift/page/1016537?svcid=renxt&envid=p-GL7PUxuNrEWw0wYzXRPqCw","cons_link":"https://host.nxt.blackbaud.com/constituent/records/484019?envId=p-GL7PUxuNrEWw0wYzXRPqCw&svcId=renxt"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":10.0,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Recreation Program Funds","fund_id":"R-004","appeal":"FY26 Summer Camp Print Mail Appeal","appeal_id":"FY26CAMP_m","constituent_id":"559229","fundraiser":"","soft_credit":"No","donor_name":"Nancy M. Wright","gift_link":"https://host.nxt.blackbaud.com/gift/page/1016544?svcid=renxt&envid=p-GL7PUxuNrEWw0wYzXRPqCw","cons_link":"https://host.nxt.blackbaud.com/constituent/records/504563?envId=p-GL7PUxuNrEWw0wYzXRPqCw&svcId=renxt"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":40.0,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Priority Needs Funds","fund_id":"R-006","appeal":"FY26 Summer Camp Print Mail Appeal","appeal_id":"FY26CAMP_m","constituent_id":"563392","fundraiser":"","soft_credit":"No","donor_name":"Rosemarie Dunbarr","gift_link":"https://host.nxt.blackbaud.com/gift/page/1016541?svcid=renxt&envid=p-GL7PUxuNrEWw0wYzXRPqCw","cons_link":"https://host.nxt.blackbaud.com/constituent/records/509347?envId=p-GL7PUxuNrEWw0wYzXRPqCw&svcId=renxt"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":30.0,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Recreation Program Funds","fund_id":"R-004","appeal":"FY26 Summer Camp Print Mail Appeal","appeal_id":"FY26CAMP_m","constituent_id":"583818","fundraiser":"","soft_credit":"No","donor_name":"Daryl Hanna","gift_link":"https://host.nxt.blackbaud.com/gift/page/1016547?svcid=renxt&envid=p-GL7PUxuNrEWw0wYzXRPqCw","cons_link":"https://host.nxt.blackbaud.com/constituent/records/537683?envId=p-GL7PUxuNrEWw0wYzXRPqCw&svcId=renxt"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":10.0,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Recreation Program Funds","fund_id":"R-004","appeal":"FY26 Summer Camp Print Mail Appeal","appeal_id":"FY26CAMP_m","constituent_id":"590759","fundraiser":"","soft_credit":"No","donor_name":"Deette LaRue","gift_link":"https://host.nxt.blackbaud.com/gift/page/1016538?svcid=renxt&envid=p-GL7PUxuNrEWw0wYzXRPqCw","cons_link":"https://host.nxt.blackbaud.com/constituent/records/545697?envId=p-GL7PUxuNrEWw0wYzXRPqCw&svcId=renxt"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":100.0,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Priority Needs Funds","fund_id":"R-006","appeal":"FY26 Summer Camp Print Mail Appeal","appeal_id":"FY26CAMP_m","constituent_id":"636435","fundraiser":"","soft_credit":"No","donor_name":"Neville J. Calcutt","gift_link":"https://host.nxt.blackbaud.com/gift/page/1016546?svcid=renxt&envid=p-GL7PUxuNrEWw0wYzXRPqCw","cons_link":"https://host.nxt.blackbaud.com/constituent/records/601984?envId=p-GL7PUxuNrEWw0wYzXRPqCw&svcId=renxt"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":100.0,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Residential and Vocational Education","fund_id":"R-001","appeal":"FY26 Summer Camp Print Mail Appeal","appeal_id":"FY26CAMP_m","constituent_id":"653887","fundraiser":"","soft_credit":"No","donor_name":"Romelia V. Morales","gift_link":"https://host.nxt.blackbaud.com/gift/page/1016545?svcid=renxt&envid=p-GL7PUxuNrEWw0wYzXRPqCw","cons_link":"https://host.nxt.blackbaud.com/constituent/records/623846?envId=p-GL7PUxuNrEWw0wYzXRPqCw&svcId=renxt"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":28.99,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Priority Needs Funds","fund_id":"R-006","appeal":"Monthly Donor  Program","appeal_id":"Guardian Angel","constituent_id":"658180","fundraiser":"","soft_credit":"No","donor_name":"Marguerite A. Igoe","gift_link":"https://host.nxt.blackbaud.com/gift/page/1016548?svcid=renxt&envid=p-GL7PUxuNrEWw0wYzXRPqCw","cons_link":"https://host.nxt.blackbaud.com/constituent/records/396975?envId=p-GL7PUxuNrEWw0wYzXRPqCw&svcId=renxt"},{"date":"2026-07-02","date_display":"Thu Jul 02, 2026","amount":20.0,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Priority Needs Funds","fund_id":"R-006","appeal":"Monthly Donor  Program","appeal_id":"Guardian Angel","constituent_id":"66309","fundraiser":"","soft_credit":"No","donor_name":"George Gonzales","gift_link":"https://host.nxt.blackbaud.com/gift/page/1016536?svcid=renxt&envid=p-GL7PUxuNrEWw0wYzXRPqCw","cons_link":"https://host.nxt.blackbaud.com/constituent/records/178602?envId=p-GL7PUxuNrEWw0wYzXRPqCw&svcId=renxt"},{"date":"2026-07-04","date_display":"Sat Jul 04, 2026","amount":52.9,"gift_type":"Cash","campaign":"Direct Marketing","campaign_desc":"Mass appeals","fund":"Hanna Priority Needs Funds","fund_id":"R-006","appeal":"Website","appeal_id":"Website","constituent_id":"657753","fundraiser":"","soft_credit":"No","donor_name":"Gerri Ratto-Clark","gift_link":"https://host.nxt.blackbaud.com/gift/page/1016553?svcid=renxt&envid=p-GL7PUxuNrEWw0wYzXRPqCw","cons_link":"https://host.nxt.blackbaud.com/constituent/records/630484?envId=p-GL7PUxuNrEWw0wYzXRPqCw&svcId=renxt"},{"date":"2026-07-04","date_display":"Sat Jul 04, 2026","amount":105.49,"gift_type":"Cash","campaign":"General Contribution","campaign_desc":"General Contribution","fund":"Hanna Priority Needs Funds","fund_id":"R-006","appeal":"Memorial & Tribute Giving","appeal_id":"MEM&TRIB","constituent_id":"658643","fundraiser":"","soft_credit":"No","donor_name":"Dennis  Gilyan","gift_link":"https://host.nxt.blackbaud.com/gift/page/1016554?svcid=renxt&envid=p-GL7PUxuNrEWw0wYzXRPqCw","cons_link":"https://host.nxt.blackbaud.com/constituent/records/631737?envId=p-GL7PUxuNrEWw0wYzXRPqCw&svcId=renxt"}]}</script>
+<script id="fytd-data" type="application/json">
+{"fy_start": "2026-07-01", "through_date": "2026-07-04", "total_gifts": 18, "total_amount": 890.83, "unique_donors": 18, "by_campaign": [{"label": "Direct Marketing", "count": 17, "amount": 785.34, "pct": 88.2}, {"label": "General Contribution", "count": 1, "amount": 105.49, "pct": 11.8}], "by_appeal": [{"label": "FY26 Summer Camp Print Mail Appeal", "count": 10, "amount": 510.0, "pct": 57.2}, {"label": "Memorial & Tribute Giving", "count": 2, "amount": 210.98, "pct": 23.7}, {"label": "Website", "count": 3, "amount": 100.86, "pct": 11.3}, {"label": "Monthly Donor  Program", "count": 2, "amount": 48.99, "pct": 5.5}, {"label": "Donors who use the new remit envelopes with no selection  - gifts restricted to R-006", "count": 1, "amount": 20.0, "pct": 2.2}], "by_fund": [{"label": "Hanna Priority Needs Funds", "count": 10, "amount": 520.83, "pct": 58.5}, {"label": "Hanna Recreation Program Funds", "count": 7, "amount": 270.0, "pct": 30.3}, {"label": "Residential and Vocational Education", "count": 1, "amount": 100.0, "pct": 11.2}]}
 </script>
 <script>
 const DATA = JSON.parse(document.getElementById('dashboard-data').textContent);
@@ -463,20 +505,60 @@ function renderSummaries(){
   renderSummaryTable('fundTable','fundTotal', DATA.by_fund);
 }
 
+function renderFYTD(){
+  const el = document.getElementById('fytd-data');
+  if(!el) return;
+  const FYTD = JSON.parse(el.textContent);
+  const throughDisplay = new Date(FYTD.through_date + 'T00:00:00').toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+  document.getElementById('fytdTag').textContent = 'FY27 · Jul 1 – ' + throughDisplay;
+  document.getElementById('fytdGifts').textContent = num(FYTD.total_gifts);
+  document.getElementById('fytdAmount').textContent = money(FYTD.total_amount);
+  document.getElementById('fytdDonors').textContent = num(FYTD.unique_donors);
+  renderSummaryTable('fytdCampaignTable','fytdCampaignTotal', FYTD.by_campaign);
+  renderSummaryTable('fytdAppealTable','fytdAppealTotal', FYTD.by_appeal);
+  renderSummaryTable('fytdFundTable','fytdFundTotal', FYTD.by_fund);
+}
+
 function escapeHtml(s){
   return (s===null||s===undefined?'':String(s)).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
 // ---------- Detail table ----------
+function linkSafe(url){
+  // Only allow http(s) URLs through as href values.
+  if(!url) return null;
+  const s = String(url).trim();
+  if(!/^https?:\/\//i.test(s)) return null;
+  return s;
+}
+
+function buildDonorCell(r){
+  const name = r.donor_name || r.constituent_id || '—';
+  const href = linkSafe(r.cons_link);
+  if(href){
+    return `<a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer" class="row-link">${escapeHtml(name)}</a>`;
+  }
+  return escapeHtml(name);
+}
+
+function buildAmountCell(r){
+  const label = money(r.amount);
+  const href = linkSafe(r.gift_link);
+  if(href){
+    return `<a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer" class="row-link">${escapeHtml(label)}</a>`;
+  }
+  return escapeHtml(label);
+}
+
 const DETAIL_COLUMNS = [
   {key:'date', label:'Date', type:'date', display: r=>r.date_display},
-  {key:'amount', label:'Amount', type:'num', num:true, display: r=>money(r.amount)},
+  {key:'donor', label:'Donor', type:'str', raw:true, display: r=>buildDonorCell(r)},
+  {key:'amount', label:'Amount', type:'num', num:true, raw:true, display: r=>buildAmountCell(r)},
   {key:'gift_type', label:'Gift Type', type:'str', display: r=>r.gift_type},
   {key:'campaign', label:'Campaign', type:'str', display: r=>r.campaign},
   {key:'fund', label:'Fund', type:'str', wrap:true, display: r=>r.fund},
   {key:'appeal', label:'Appeal', type:'str', wrap:true, display: r=>r.appeal},
   {key:'fundraiser', label:'Fundraiser', type:'str', display: r=>r.fundraiser || '—'},
-  {key:'constituent_id', label:'Constituent ID', type:'str', display: r=>r.constituent_id},
 ];
 
 let detailSort = {key:'date', dir:1};
@@ -505,6 +587,7 @@ function renderDetailBody(){
   if(query){
     rows = rows.filter(r =>
       (r.constituent_id||'').toLowerCase().includes(query) ||
+      (r.donor_name||'').toLowerCase().includes(query) ||
       (r.campaign||'').toLowerCase().includes(query) ||
       (r.campaign_desc||'').toLowerCase().includes(query) ||
       (r.appeal||'').toLowerCase().includes(query) ||
@@ -517,6 +600,7 @@ function renderDetailBody(){
   rows.sort((a,b)=>{
     let av = a[key], bv = b[key];
     if(key==='amount'){ av = a.amount; bv = b.amount; }
+    if(key==='donor'){ av = (a.donor_name||a.constituent_id||''); bv = (b.donor_name||b.constituent_id||''); }
     if(av < bv) return -1*dir;
     if(av > bv) return 1*dir;
     return 0;
@@ -533,7 +617,7 @@ function renderDetailBody(){
   emptyEl.style.display='none';
   body.innerHTML = rows.map(r=>`
     <tr>
-      ${DETAIL_COLUMNS.map(col=>`<td class="${col.num?'num':''} ${col.wrap?'wrap-cell':''}">${escapeHtml(col.display(r))}</td>`).join('')}
+      ${DETAIL_COLUMNS.map(col=>`<td class="${col.num?'num':''} ${col.wrap?'wrap-cell':''}">${col.raw ? col.display(r) : escapeHtml(col.display(r))}</td>`).join('')}
     </tr>
   `).join('');
 }
@@ -545,6 +629,7 @@ function renderAll(){
   renderKPIs();
   renderDailyChart();
   renderSummaries();
+  renderFYTD();
   renderDetailHeader();
   renderDetailBody();
 }
