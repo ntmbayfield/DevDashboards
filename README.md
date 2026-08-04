@@ -14,6 +14,7 @@ site/
     ├── fy26-progress-to-goal.html          (FY26 Progress to Goal)
     ├── weekly-giving-jul6-12.html          (Weekly Giving: July 6th-12th, 2026)
     ├── weekly-giving-jul1-5.html           (Weekly Giving: July 1st-July 5th, 2026)
+    ├── july-giving-yoy.html                (July Giving: 2026 vs. 2025)
     ├── weekly-giving-jul13-19.html         (Weekly Giving: July 13th-19th, 2026)
     ├── weekly-giving-jul20-26.html         (Weekly Giving: July 20th-26th, 2026)
     └── officer-performance.html            (Development Officer Performance — prototype)
@@ -118,6 +119,28 @@ The Executive Summary narrative on this dashboard is written commentary, not
 a calculated field — it explains why the FY25→FY26 total revenue drop is a
 Planned Giving timing effect rather than a fundraising performance issue, and
 flags the same Foundation/Government tracking-change caveat noted above.
+
+### July Giving: 2026 vs. 2025 (`july-giving-yoy.html`)
+
+**Source files:**
+- July 2026: the combined gift-level data from all five weekly reports
+  covering the month (`Weekly_Gift_Detail_Report_07_01_26-07_05_26.xlsx`,
+  `..._07_06_26-07_12_26.csv`, `..._07_13_26-07_19_26.csv`,
+  `..._July20-26.csv`, `Weekly_Gift_Report_July27-aug2.csv` — the last file
+  spans July 27–Aug 2, so only its July 27–31 rows are included here).
+- July 2025: `FY26_GIFTS.xlsx`, filtered to `Gf_Date` in July 2025 and
+  excluding `Terminated` gifts.
+
+Both months are complete (31 days each).
+
+**Metrics:**
+
+| Metric | Calculation |
+|---|---|
+| Total Revenue / Total Gifts / Unique Donors / Average Gift | Same definitions as the FY26 Fundraising Overview dashboard, computed separately for each year's July gifts |
+| Daily Average | Total Revenue ÷ 31 days, for both years |
+| Daily Giving chart | Revenue by day of month, both years plotted on the same 1–31 axis |
+| Giving by Campaign | Revenue by revised campaign classification, both years, with $ and % change |
 
 ### Weekly Giving: July 6th-12th, 2026 (`weekly-giving-jul6-12.html`)
 
