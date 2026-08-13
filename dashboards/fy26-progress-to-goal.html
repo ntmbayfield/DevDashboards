@@ -360,10 +360,10 @@
       <p class="sub">Final goal achievement by campaign, with and without Planned Giving.</p>
     </div>
     <div class="toggle-block">
-      <span class="toggle-label">View</span>
+      <span class="toggle-label">Planned Giving</span>
       <div class="toggle" id="pgToggle">
-        <button data-mode="exclude" class="active">Excluding Planned Giving</button>
-        <button data-mode="include">All Campaigns</button>
+        <button data-mode="exclude" class="active">Excluded</button>
+        <button data-mode="include">Included</button>
       </div>
     </div>
   </div>
@@ -373,100 +373,8 @@
 
   <section class="block">
     <div class="exec-summary">
-      <div class="icon">📊</div>
-      <div>
-        <h2>Executive Summary: FY26 Fundraising Results</h2>
-        <p><strong>Total revenue fell from $3.98M in FY25 to $2.90M in FY26 — a 27% drop.</strong> The decline is almost entirely a Planned Giving timing effect, not a reflection of overall fundraising performance.</p>
-        <ul>
-          <li>Planned Giving swung from $1.96M in FY25 down to $372K in FY26 — a $1.6M drop, -81% — accounting for more than the entire year-over-year revenue decline. Large bequests are lumpy and unpredictable by nature: one exceptional gift made FY25 look outstanding, and its absence made FY26 look weaker than it actually was, even though the underlying program is healthy — a pattern worth factoring into how single-year swings are interpreted going forward.</li>
-          <li><strong>Excluding Planned Giving, the picture flips: core fundraising — Direct Marketing, Events, Major Gifts, and Other — grew 25% this year, from $2.02M to $2.53M.</strong></li>
-        </ul>
-
-        <div class="insight-stack">
-          <div class="insight-card pos">
-            <p class="lead-line">Major Gifts is the clearest growth engine.</p>
-            <p>Revenue grew from $548K to $1.04M to $1.28M over three years — +133% cumulative. This is the most consistent, compounding growth story in the portfolio.</p>
-          </div>
-          <div class="insight-card teal">
-            <p class="lead-line">Events are a stable, growing base.</p>
-            <p>Revenue moved from $422K to $639K to $650K — steady growth of +54% cumulative, with no volatility. A reliable pillar.</p>
-          </div>
-          <div class="insight-card gold">
-            <p class="lead-line">Direct Marketing/Annual Fund dipped and has recovered.</p>
-            <p>It dropped 56% in FY25, then rebounded 127% in FY26, landing almost exactly flat against FY24. This is best characterized as recovered rather than simply up or down.</p>
-          </div>
-          <div class="insight-card gold">
-            <p class="lead-line">Apparent decline in Other is a reporting change, not a real one.</p>
-            <p>Foundation and Government grants, bucketed as "Other," show a drop from $776K to $80K to $54K over three years. That is not a decline in institutional support — those gift types are no longer recorded in Raiser's Edge and are now tracked in their own external set of dashboards. This line should be read as a shrinking category in this system, not a shrinking program.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="block" id="combinedTrackerSection">
-    <div class="panel">
-      <div class="chart-head" style="margin-bottom:20px;">
-        <h2>🎯 FY26 Controllable Revenue Results</h2>
-      </div>
-      <p style="font-size:13px;color:var(--muted);margin:-14px 0 18px;">Direct Marketing + Event Income + Major Gifts Combined</p>
-
-      <div class="kpi-row">
-        <div class="kpi-mini goal">
-          <div class="label">Combined Goal</div>
-          <div class="value" id="ctGoal">—</div>
-        </div>
-        <div class="kpi-mini raised">
-          <div class="label">Total Raised</div>
-          <div class="value" id="ctRaised">—</div>
-          <div class="sub" id="ctRaisedPct">—</div>
-        </div>
-        <div class="kpi-mini" id="ctGapCard">
-          <div class="label" id="ctGapLabel">—</div>
-          <div class="value" id="ctGapValue">—</div>
-        </div>
-      </div>
-
-      <div class="progress-head">
-        <span class="ptitle">Progress to Goal</span>
-        <span class="ppct" id="ctProgressPct">—</span>
-      </div>
-      <div class="progress-track">
-        <div class="progress-fill" id="ctProgressFill"><span id="ctProgressLabel">—</span></div>
-      </div>
-
-      <div style="margin-top:22px;padding-top:18px;border-top:1px solid var(--line);">
-        <div class="breakdown-title">Breakdown by Campaign</div>
-        <div class="breakdown-grid" id="ctBreakdownGrid"></div>
-        <div class="breakdown-footnote">Note: Other ($53,500) and Hanna Academy ($2,360) included in total raised but have no goal amounts.</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="block" id="comparisonBannerSection">
-    <div class="comparison-banner">
-      <div class="cb-top">
-        <div>
-          <h2>🎯 Controllable Fundraising Results</h2>
-          <div class="cb-sub">Excluding unpredictable Planned Giving</div>
-        </div>
-        <div>
-          <div class="cb-pct" id="cbPct">—</div>
-          <div class="cb-pct-label">of Goal</div>
-        </div>
-      </div>
-      <div class="cb-grid">
-        <div class="cb-card">
-          <div class="cbc-label">With Planned Giving</div>
-          <div class="cbc-value" id="cbWithPct">—</div>
-          <div class="cbc-gap" id="cbWithGap">—</div>
-        </div>
-        <div class="cb-card active">
-          <div class="cbc-label">Without Planned Giving</div>
-          <div class="cbc-value" id="cbExclPct">—</div>
-          <div class="cbc-gap" id="cbExclGap">—</div>
-        </div>
-      </div>
+      <div class="icon" id="execIcon">📊</div>
+      <div id="execSummaryContent"></div>
     </div>
   </section>
 
@@ -575,6 +483,60 @@ function pctClass(pct){
   return 'low';
 }
 
+const INSIGHT_CARDS = `
+  <div class="insight-card pos">
+    <p class="lead-line">Major Gifts is the clearest growth engine.</p>
+    <p>Revenue grew from $548K to $1.04M to $1.28M over three years — +133% cumulative. This is the most consistent, compounding growth story in the portfolio.</p>
+  </div>
+  <div class="insight-card teal">
+    <p class="lead-line">Events are a stable, growing base.</p>
+    <p>Revenue moved from $422K to $639K to $650K — steady growth of +54% cumulative, with no volatility. A reliable pillar.</p>
+  </div>
+  <div class="insight-card gold">
+    <p class="lead-line">Direct Marketing/Annual Fund dipped and has recovered.</p>
+    <p>It dropped 56% in FY25, then rebounded 127% in FY26, landing almost exactly flat against FY24. This is best characterized as recovered rather than simply up or down.</p>
+  </div>
+  <div class="insight-card gold">
+    <p class="lead-line">Institutional funding's apparent decline is a reporting change, not a real one.</p>
+    <p>Foundation and Government grants, bucketed as "Other," show a drop from $776K to $80K to $54K over three years. That is not a decline in institutional support — those gift types are no longer recorded in Raiser's Edge and are now tracked in their own external set of dashboards. This line should be read as a shrinking category in this system, not a shrinking program.</p>
+  </div>
+`;
+
+function renderExecSummary(showBequests){
+  document.getElementById('execIcon').textContent = showBequests ? '🎲' : '📊';
+  const content = document.getElementById('execSummaryContent');
+
+  if(showBequests){
+    content.innerHTML = `
+      <h2>Executive Summary: FY26 Total Fundraising Results (Planned Giving Included)</h2>
+      <p>This view shows every campaign, including Planned Giving. <strong>Total revenue fell from $3.98M in FY25 to $2.90M in FY26 — a 27% drop.</strong> That decline is almost entirely a Planned Giving timing effect, not a reflection of overall fundraising performance, so this headline number should be read with that context rather than at face value.</p>
+      <ul>
+        <li>Planned Giving swung from $1.96M in FY25 down to $372K in FY26 — a $1.6M drop, -81% — accounting for more than the entire year-over-year revenue decline. Large bequests are lumpy and unpredictable by nature: one exceptional gift made FY25 look outstanding, and its absence made FY26 look weaker than it actually was, even though the underlying program is healthy.</li>
+        <li>Switch this toggle to "Excluded" to see the core fundraising picture without that volatility — it flips to 25% growth year over year.</li>
+      </ul>
+      <div class="insight-stack">
+        ${INSIGHT_CARDS}
+        <div class="insight-card neg">
+          <p class="lead-line">Planned Giving is inherently volatile, by nature rather than by performance.</p>
+          <p>A single bequest can swing this line by seven figures in either direction from one year to the next. Its progress-to-goal figure below should be read as a snapshot of unpredictable timing, not a performance indicator for the development team.</p>
+        </div>
+      </div>
+    `;
+  } else {
+    content.innerHTML = `
+      <h2>Executive Summary: FY26 Core Fundraising Results (Planned Giving Excluded)</h2>
+      <p>This view excludes Planned Giving, which is unpredictable and prone to large single-gift swings that can obscure the underlying trend. Looking only at the campaigns development staff most directly influence — Direct Marketing, Events, Major Gifts, and Other/Hanna Academy — <strong>FY26 core revenue grew 25% year over year, from $2.02M to $2.53M</strong>, reaching 95.7% of combined goal.</p>
+      <ul>
+        <li>This is the more representative view of fundraising performance: it reflects execution and donor relationships rather than the timing of a small number of large, unpredictable gifts.</li>
+        <li>Switch this toggle to "Included" to see how Planned Giving affects the total picture — it turns a 25% core-fundraising gain into a 27% total-revenue decline, entirely due to one campaign's swing.</li>
+      </ul>
+      <div class="insight-stack">
+        ${INSIGHT_CARDS}
+      </div>
+    `;
+  }
+}
+
 function render(){
   const showBequests = state.mode === 'include';
   document.querySelectorAll('#pgToggle button').forEach(b=>b.classList.toggle('active', b.dataset.mode===state.mode));
@@ -584,54 +546,8 @@ function render(){
   const { totalRaised, totalGoal, pct: overallPct, gap } = totals;
   const maxGoal = Math.max(...campaigns.map(c=>c.goal));
 
-  // ---- Combined Controllable Revenue Tracker (only when excluding PG) ----
-  document.getElementById('combinedTrackerSection').style.display = showBequests ? 'none' : 'block';
-  document.getElementById('comparisonBannerSection').style.display = showBequests ? 'none' : 'block';
-
-  if(!showBequests){
-    document.getElementById('ctGoal').textContent = formatCurrency(excludingBequests.totalGoal);
-    document.getElementById('ctRaised').textContent = formatCurrency(excludingBequests.totalRaised);
-    document.getElementById('ctRaisedPct').textContent = excludingBequests.pct.toFixed(1) + '% of goal';
-
-    const gapCard = document.getElementById('ctGapCard');
-    const gapLabel = document.getElementById('ctGapLabel');
-    const gapValue = document.getElementById('ctGapValue');
-    const eGap = excludingBequests.gap;
-    gapCard.className = 'kpi-mini ' + (eGap > 0 ? 'gap-neg' : 'gap-pos');
-    gapLabel.textContent = eGap > 0 ? 'Below Goal' : 'Over Goal';
-    gapValue.textContent = (eGap > 0 ? '-' : '+') + formatCurrency(Math.abs(eGap));
-
-    document.getElementById('ctProgressPct').textContent = excludingBequests.pct.toFixed(1) + '%';
-    const fill = document.getElementById('ctProgressFill');
-    fill.style.width = Math.min(excludingBequests.pct, 100) + '%';
-    document.getElementById('ctProgressLabel').textContent = formatCurrency(excludingBequests.totalRaised) + ' raised';
-
-    const grid = document.getElementById('ctBreakdownGrid');
-    grid.innerHTML = campaignsExcludingBequests.map(c=>{
-      const p = (c.raised/c.goal)*100;
-      const over = p >= 100;
-      const delta = Math.abs(c.raised - c.goal);
-      return `<div class="breakdown-item ${over?'over':'under'}">
-        <div>
-          <div class="biname">${c.name}</div>
-          <div class="bisub">${formatCurrency(c.raised)} of ${formatCurrency(c.goal)}</div>
-        </div>
-        <div>
-          <div class="bipct">${p.toFixed(0)}%</div>
-          <div class="bidelta">${over ? '+'+formatCurrency(delta)+' over ✓' : formatCurrency(delta)+' below'}</div>
-        </div>
-      </div>`;
-    }).join('');
-  }
-
-  // ---- Comparison banner ----
-  if(!showBequests){
-    document.getElementById('cbPct').textContent = excludingBequests.pct.toFixed(1) + '%';
-    document.getElementById('cbWithPct').textContent = withBequests.pct.toFixed(1) + '%';
-    document.getElementById('cbWithGap').textContent = (withBequests.gap > 0 ? 'Below' : 'Over') + ': ' + formatCurrency(Math.abs(withBequests.gap));
-    document.getElementById('cbExclPct').textContent = excludingBequests.pct.toFixed(1) + '%';
-    document.getElementById('cbExclGap').textContent = (excludingBequests.gap > 0 ? 'Below' : 'Over') + ': ' + formatCurrency(Math.abs(excludingBequests.gap));
-  }
+  // ---- Executive Summary (toggle-dependent) ----
+  renderExecSummary(showBequests);
 
   // ---- Summary stats ----
   const statsGrid = document.getElementById('statsGrid');
@@ -656,7 +572,7 @@ function render(){
   `;
 
   // ---- Chart title ----
-  document.getElementById('chartTitle').textContent = showBequests ? 'All Campaigns' : 'Campaigns (Excluding Planned Giving)';
+  document.getElementById('chartTitle').textContent = showBequests ? 'All Campaigns (Planned Giving Included)' : 'Campaigns (Planned Giving Excluded)';
 
   // ---- Campaign stacked bars ----
   const barsEl = document.getElementById('campaignBars');
@@ -696,7 +612,7 @@ function render(){
   document.getElementById('otherRevenueText').textContent = formatCurrency(otherRevenue);
 
   // ---- Total bar ----
-  document.getElementById('totalLabel').textContent = 'TOTAL' + (!showBequests ? ' (Excl. Planned Giving)' : '');
+  document.getElementById('totalLabel').textContent = 'TOTAL' + (!showBequests ? ' (Planned Giving Excluded)' : ' (Planned Giving Included)');
   const totalPctEl = document.getElementById('totalPct');
   totalPctEl.textContent = overallPct.toFixed(1) + '%';
   totalPctEl.className = 'tpct ' + (overallPct >= 100 ? 'hi' : overallPct >= 75 ? 'mid' : 'lo');
@@ -736,7 +652,7 @@ function render(){
 
   const totalPctCls = overallPct >= 100 ? 'pct-hi' : overallPct >= 50 ? 'pct-mid' : 'pct-lo';
   rows += `<tr class="total-row">
-    <td class="name-cell">TOTAL${!showBequests ? ' (Excl. Planned Giving)' : ''}</td>
+    <td class="name-cell">TOTAL${!showBequests ? ' (Planned Giving Excluded)' : ' (Planned Giving Included)'}</td>
     <td class="num">${formatFullCurrency(totalGoal)}</td>
     <td class="num">${formatFullCurrency(totalRaised)}</td>
     <td class="num ${gap<=0?'pos-text':'neg-text'}">${gap<=0?'+':''}${formatFullCurrency(-gap)}</td>
