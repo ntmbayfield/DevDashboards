@@ -462,6 +462,7 @@ function renderBeforeAfter(){
   };
   const opts = {
     responsive:true, maintainAspectRatio:false,
+    layout:{ padding:{ top:26 } },
     plugins:{
       legend:{display:false},
       tooltip:{callbacks:{label:c=>money(c.raw)}}
@@ -471,8 +472,24 @@ function renderBeforeAfter(){
       y:{grid:{color:GRID}, ticks:{callback:v=>'$'+(v/1000).toLocaleString()+'k'}}
     }
   };
+  const valueLabelPlugin = {
+    id: 'baValueLabels',
+    afterDatasetsDraw(chart){
+      const {ctx} = chart;
+      const vals = chart.data.datasets[0].data;
+      ctx.save();
+      ctx.font = "600 12.5px 'Inter', sans-serif";
+      ctx.fillStyle = TEXT;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'bottom';
+      chart.getDatasetMeta(0).data.forEach((bar,i)=>{
+        ctx.fillText(money(vals[i]), bar.x, bar.y - 8);
+      });
+      ctx.restore();
+    }
+  };
   if(baChart){ baChart.data=data; baChart.options=opts; baChart.update(); }
-  else{ baChart = new Chart(ctx,{type:'bar', data, options:opts}); }
+  else{ baChart = new Chart(ctx,{type:'bar', data, options:opts, plugins:[valueLabelPlugin]}); }
 
   // Detail table: revenue by campaign and its share of the year's total
   const totalAfter = camps.reduce((s,c)=>s+AFTER[state.fy][c],0);
